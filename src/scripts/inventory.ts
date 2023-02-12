@@ -9,6 +9,7 @@ export class Inventory {
     constructor(id: string) {
         this.id = id;
         this.items = new Array<InventoryItem>();
+        this.displayListings = new Array<InventoryDisplay>();
     }
 
     setItems(newItems: InventoryItem[]) {
@@ -40,7 +41,6 @@ export class Inventory {
             newItem.amount += amount;
         }
         this.items.splice(this.items.indexOf(currentItem), 1, newItem)
-        console.log(this.items);
     }
 
     canAddItem(currentItem: ItemType, currentAmount: number): boolean {
@@ -88,7 +88,6 @@ export class Inventory {
     }
 
     getDisplay() {
-        console.log("TEST");
         const toDisplay = new Array<InventoryDisplay>();
         for (const item of this.items) {
             let displayItem = item.type.display + " " + item.amount.toString() + "/" + item.type.maxAmount.toString();

@@ -1,6 +1,5 @@
 import { ItemTrade, SellItem, BuyItem } from "./trading/itemTrade";
-import type { GameController } from "./gameController";
-import { initCustomFormatter } from "vue";
+import { GameController } from "./GameController"
 
 export class TradeShop {
     availableTrades: ItemTrade[];
@@ -72,40 +71,40 @@ export class TradeShop {
 
 
         if (mainInputs.length > 0) {
-            if (!this.controller.mainInv.hasItems(mainInputs)) return;
+            if (!GameController.mainInv.hasItems(mainInputs)) return;
         }
         if (crysInputs.length > 0) {
-            if (!this.controller.crystalInv.hasItems(crysInputs)) return;
+            if (!GameController.crystalInv.hasItems(crysInputs)) return;
         }
         if (this.isSelling(trade)) {
             if (trade.outputType.invType == "main") {
-                if (!this.controller.mainInv.canAddItem(trade.outputType, trade.outputFunction(1))) return;
+                if (!GameController.mainInv.canAddItem(trade.outputType, trade.outputFunction(1))) return;
                 else {
-                    this.controller.mainInv.addItems(new Array({ type: trade.outputType, amount: trade.outputFunction(1) }));
-                    this.controller.mainInv.loseItems(mainInputs);
+                    GameController.mainInv.addItems(new Array({ type: trade.outputType, amount: trade.outputFunction(1) }));
+                    GameController.mainInv.loseItems(mainInputs);
                 }
             }
             if (trade.outputType.invType == "crystal") {
-                if (!this.controller.crystalInv.canAddItem(trade.outputType, trade.outputFunction(1))) return;
+                if (!GameController.crystalInv.canAddItem(trade.outputType, trade.outputFunction(1))) return;
                 else {
-                    this.controller.crystalInv.addItems(new Array({ type: trade.outputType, amount: trade.outputFunction(1) }));
-                    this.controller.crystalInv.loseItems(crysInputs);
+                    GameController.crystalInv.addItems(new Array({ type: trade.outputType, amount: trade.outputFunction(1) }));
+                    GameController.crystalInv.loseItems(crysInputs);
                 }
             }
         }
         else if (this.isBuying(trade)) {
             if (trade.outputType.invType == "main") {
-                if (!this.controller.mainInv.canAddItem(trade.outputType, trade.outputAmount)) return;
+                if (!GameController.mainInv.canAddItem(trade.outputType, trade.outputAmount)) return;
                 else {
-                    this.controller.mainInv.addItems(new Array({ type: trade.outputType, amount: trade.outputAmount }));
-                    this.controller.mainInv.loseItems(mainInputs);
+                    GameController.mainInv.addItems(new Array({ type: trade.outputType, amount: trade.outputAmount }));
+                    GameController.mainInv.loseItems(mainInputs);
                 }
             }
             if (trade.outputType.invType == "crystal") {
-                if (!this.controller.crystalInv.canAddItem(trade.outputType, trade.outputAmount)) return;
+                if (!GameController.crystalInv.canAddItem(trade.outputType, trade.outputAmount)) return;
                 else {
-                    this.controller.crystalInv.addItems(new Array({ type: trade.outputType, amount: trade.outputAmount }));
-                    this.controller.crystalInv.loseItems(crysInputs);
+                    GameController.crystalInv.addItems(new Array({ type: trade.outputType, amount: trade.outputAmount }));
+                    GameController.crystalInv.loseItems(crysInputs);
                 }
             }
         }
