@@ -1,6 +1,7 @@
 <script setup lang="ts">
     import { defineComponent } from 'vue';
     import {GameController} from "../scripts/GameController"
+    import { ItemExchanger } from '../scripts/items/itemExchanger';
     import { ItemTrade } from '../scripts/trading/itemTrade';
 </script>
 
@@ -10,8 +11,13 @@
             getTrade(index:number): ItemTrade{
                 return GameController.mainTrades.availableTrades[index]
             },
-            getTradeProgress(index:number){
-                return this.getTrade(index).progress / GameController.mainTrades.getTradeTime(this.getTrade(index)) * 100
+            getTradeProgress(index:number): number{
+                const trade = this.getTrade(index)
+                return trade.progress / GameController.mainTrades.getTradeTime(trade) * 100
+            },
+            canTrade(index:number): boolean{
+                const trade = this.getTrade(index);
+                return trade.exchanger.canExchange();
             }
         },
     })
@@ -20,8 +26,8 @@
 <template>
     <div class="flex flex-col m-2">
         <div class="bg-white w-64 h-14 pt-3 outline outline-4 outline-black mb-5">Trading Post</div>
-        <div class="flex mt-1 flex-col bg-white w-64 h-fit text-left outline outline-4 outline-black" v-for="item, index in GameController.mainTrades.getTrades()">
-            <pre @click="GameController.mainTrades.makeTrade(index)">{{item}}</pre>
+        <div class="flex mt-1.5 flex-col bg-white w-64 h-fit text-left outline outline-4 outline-black" v-for="item, index in GameController.mainTrades.getTrades()">
+            <pre :class="{'bg-neutral-300':!this.canTrade(index)}" @click="GameController.mainTrades.makeTrade(index)">{{item}}</pre>
             <div class="w-full bg-gray-400 h-2.5">
                 <div class="bg-blue-600 h-2.5" :style="{width:this.getTradeProgress(index)+'%'}"></div>
             </div>

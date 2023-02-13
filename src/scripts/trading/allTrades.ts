@@ -1,4 +1,5 @@
 import { AllItems, ItemNames } from "../items/allItems";
+import { ItemExchanger } from "../items/itemExchanger";
 
 export enum TradeName {
     SellPine,
@@ -21,6 +22,7 @@ export class AllTrades {
             },
             timeToComplete: 2,
             progress: 0,
+            exchanger: new ItemExchanger(),
         },
         [TradeName.BuyPine]: {
             display: "Pine Wood",
@@ -33,6 +35,7 @@ export class AllTrades {
             },
             outputAmount: 1,
             progress: 0,
+            exchanger: new ItemExchanger(),
         },
         [TradeName.BuyRedCrys]: {
             display: "Red Crystal",
@@ -45,6 +48,7 @@ export class AllTrades {
             },
             outputAmount: 1,
             progress: 0,
+            exchanger: new ItemExchanger(),
         },
 
     }

@@ -1,5 +1,5 @@
-import { ItemType } from "./items/allItems";
-import { InventoryItem } from "./items/inventoryItem";
+import { ItemType } from "./allItems";
+import { InventoryItem } from "./inventoryItem";
 
 export class Inventory {
     items: InventoryItem[];
@@ -44,19 +44,14 @@ export class Inventory {
     }
 
     canAddItem(currentItem: ItemType, currentAmount: number): boolean {
-        if (currentAmount >= currentItem.maxAmount) {
-            return false;
-        }
-        else {
-            return true;
-        }
+        return currentAmount < currentItem.maxAmount
     }
 
     canAddItemList(itemsToAdd: InventoryItem[]) {
         for (const newItem of itemsToAdd) {
             const currentItem = this.items.find(i => i.type.id === newItem.type.id)
             if (currentItem === undefined) continue;
-            if (!this.canAddItem(currentItem.type, newItem.amount)) return false;
+            if (!this.canAddItem(currentItem.type, currentItem.amount)) return false;
         }
         return true;
     }
@@ -77,12 +72,7 @@ export class Inventory {
             const currentItem = this.items.find(item => item.type.id === loseItem.type.id);
             const newItem = { type: currentItem.type, amount: currentItem.amount };
             newItem.amount -= loseItem.amount;
-            if (newItem.amount <= 0) {
-                this.items = this.items.filter(item => item.type.id !== currentItem.type.id);
-            }
-            else {
-                this.items.splice(this.items.indexOf(currentItem), 1, newItem);
-            }
+            this.items.splice(this.items.indexOf(currentItem), 1, newItem);
         }
         this.getDisplay();
     }

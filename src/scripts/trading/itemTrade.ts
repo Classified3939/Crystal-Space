@@ -1,5 +1,6 @@
 import { ItemType } from "../items/allItems";
 import { InventoryItem } from "../items/inventoryItem";
+import { ItemExchanger } from "../items/itemExchanger";
 import { TradeName } from "./allTrades"
 
 export interface ItemTrade {
@@ -9,6 +10,7 @@ export interface ItemTrade {
     inputs: InventoryItem[];
     outputType: ItemType;
     progress: number;
+    exchanger: ItemExchanger;
 }
 
 export interface SellItem extends ItemTrade {

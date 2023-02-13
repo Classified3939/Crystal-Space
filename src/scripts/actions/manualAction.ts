@@ -1,16 +1,15 @@
 import { InventoryItem } from "../items/inventoryItem";
 import { ISimpleEvent } from "strongly-typed-events";
-import { CraftName } from "./allCrafts";
+import { ActionName } from "./allActions";
 import { ItemExchanger } from "../items/itemExchanger";
 
-export interface ItemCraft {
+export interface ManualAction {
     display: string;
-    id: CraftName;
+    id: ActionName;
     inputs: InventoryItem[];
-    output: InventoryItem[];
-    effortLevel: number;
+    output: InventoryItem;
     timeFunction: (effort: number) => number;
     progress: number;
-    onFinish: ISimpleEvent<CraftName>;
+    onFinish: ISimpleEvent<ActionName>;
     exchanger: ItemExchanger;
 }
