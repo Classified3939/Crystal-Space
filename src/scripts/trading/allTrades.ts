@@ -3,12 +3,11 @@ import { AllItems, ItemNames } from "../items/allItems";
 export enum TradeName {
     SellPine,
     BuyPine,
-    SellRedCrys,
     BuyRedCrys,
 }
 
 export class AllTrades {
-    static items: object = {
+    static trades: object = {
         [TradeName.SellPine]: {
             display: "Pine Wood",
             id: TradeName.SellPine,
@@ -21,6 +20,7 @@ export class AllTrades {
                 return Math.floor((uses - 1) * (10 ** 0.9775) + 10);
             },
             timeToComplete: 2,
+            progress: 0,
         },
         [TradeName.BuyPine]: {
             display: "Pine Wood",
@@ -32,6 +32,20 @@ export class AllTrades {
                 return Math.floor((uses - 1) * (0.35 ** 2) + 2);
             },
             outputAmount: 1,
-        }
+            progress: 0,
+        },
+        [TradeName.BuyRedCrys]: {
+            display: "Red Crystal",
+            id: TradeName.BuyRedCrys,
+            isSelling: false,
+            inputs: new Array({ type: AllItems.items[ItemNames.CopperCoin], amount: 50 }),
+            outputType: AllItems.items[ItemNames.RedCrystal],
+            timeFunction: (uses: number): number => {
+                return Math.floor((uses - 1) * (0.35 ** 5) + 5);
+            },
+            outputAmount: 1,
+            progress: 0,
+        },
+
     }
 }

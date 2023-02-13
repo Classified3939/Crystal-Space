@@ -9,6 +9,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "raf-loop": "^1.1.3",
+    "strongly-typed-events": "^3.0.9",
     "vue": "^3.2.45"
   },
   "devDependencies": {

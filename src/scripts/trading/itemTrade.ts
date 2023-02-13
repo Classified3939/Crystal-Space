@@ -8,6 +8,7 @@ export interface ItemTrade {
     isSelling: boolean;
     inputs: InventoryItem[];
     outputType: ItemType;
+    progress: number;
 }
 
 export interface SellItem extends ItemTrade {

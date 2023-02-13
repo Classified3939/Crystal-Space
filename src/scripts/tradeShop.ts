@@ -1,19 +1,15 @@
 import { ItemTrade, SellItem, BuyItem } from "./trading/itemTrade";
 import { GameController } from "./GameController"
 
+
 export class TradeShop {
     availableTrades: ItemTrade[];
     id: string;
-    controller: GameController = null;
 
 
     constructor(id: string) {
         this.id = id;
         this.availableTrades = new Array<ItemTrade>();
-    }
-
-    initialize(controller: GameController) {
-        this.controller = controller;
     }
 
     addTrade(newTrade: ItemTrade) {
@@ -49,8 +45,6 @@ export class TradeShop {
                 toDisplay += " Time: " + trade.timeToComplete + " Seconds\n"
             }
 
-            toDisplay += "\n"
-
             tradeArray.push(toDisplay)
         }
         return tradeArray;
@@ -80,15 +74,13 @@ export class TradeShop {
             if (trade.outputType.invType == "main") {
                 if (!GameController.mainInv.canAddItem(trade.outputType, trade.outputFunction(1))) return;
                 else {
-                    GameController.mainInv.addItems(new Array({ type: trade.outputType, amount: trade.outputFunction(1) }));
-                    GameController.mainInv.loseItems(mainInputs);
+                    trade.progress += 1 / 60;
                 }
             }
             if (trade.outputType.invType == "crystal") {
                 if (!GameController.crystalInv.canAddItem(trade.outputType, trade.outputFunction(1))) return;
                 else {
-                    GameController.crystalInv.addItems(new Array({ type: trade.outputType, amount: trade.outputFunction(1) }));
-                    GameController.crystalInv.loseItems(crysInputs);
+                    trade.progress += 1 / 60;
                 }
             }
         }
@@ -96,17 +88,58 @@ export class TradeShop {
             if (trade.outputType.invType == "main") {
                 if (!GameController.mainInv.canAddItem(trade.outputType, trade.outputAmount)) return;
                 else {
-                    GameController.mainInv.addItems(new Array({ type: trade.outputType, amount: trade.outputAmount }));
-                    GameController.mainInv.loseItems(mainInputs);
+                    trade.progress += 1 / 60;
                 }
             }
             if (trade.outputType.invType == "crystal") {
                 if (!GameController.crystalInv.canAddItem(trade.outputType, trade.outputAmount)) return;
                 else {
-                    GameController.crystalInv.addItems(new Array({ type: trade.outputType, amount: trade.outputAmount }));
-                    GameController.crystalInv.loseItems(crysInputs);
+                    trade.progress += 1 / 60;
                 }
             }
         }
     }
+
+    exchangeItems(trade: ItemTrade) {
+        const mainInputs = trade.inputs.filter(i => i.type.invType === "main");
+        const crysInputs = trade.inputs.filter(i => i.type.invType === "crystal");
+
+        GameController.mainInv.loseItems(mainInputs);
+        GameController.crystalInv.loseItems(crysInputs);
+        const outputToMain = trade.outputType.invType === "main";
+        if (this.isBuying(trade)) {
+            if (outputToMain) {
+                GameController.mainInv.addItems(new Array({ type: trade.outputType, amount: trade.outputAmount }))
+            }
+            else {
+                GameController.crystalInv.addItems(new Array({ type: trade.outputType, amount: trade.outputAmount }))
+            }
+        }
+        else if (this.isSelling(trade)) {
+            if (outputToMain) {
+                GameController.mainInv.addItems(new Array({ type: trade.outputType, amount: trade.outputFunction(1) }));
+            }
+            else {
+                GameController.crystalInv.addItems(new Array({ type: trade.outputType, amount: trade.outputFunction(1) }));
+            }
+        }
+    }
+
+    updateTrades(dt: DOMHighResTimeStamp) {
+        for (const trade of this.availableTrades) {
+            if (trade.progress > 0) {
+                trade.progress += (dt / 1000);
+                if (trade.progress >= this.getTradeTime(trade)) {
+                    this.exchangeItems(trade);
+                    trade.progress = 0;
+                }
+            }
+        }
+    }
+
+    getTradeTime(trade: ItemTrade): number {
+        if (this.isSelling(trade)) return trade.timeToComplete;
+        if (this.isBuying(trade)) return trade.timeFunction(1);
+    }
+
 }

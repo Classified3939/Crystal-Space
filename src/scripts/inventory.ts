@@ -77,7 +77,7 @@ export class Inventory {
             const currentItem = this.items.find(item => item.type.id === loseItem.type.id);
             const newItem = { type: currentItem.type, amount: currentItem.amount };
             newItem.amount -= loseItem.amount;
-            if (currentItem.amount <= 0) {
+            if (newItem.amount <= 0) {
                 this.items = this.items.filter(item => item.type.id !== currentItem.type.id);
             }
             else {

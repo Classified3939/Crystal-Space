@@ -2,6 +2,7 @@
 import {GameController} from '../scripts/GameController';
 
 </script>
+
 <template>
     <div class="flex flex-col m-2">
         <div class="bg-white w-36 h-14 outline outline-4 outline-black pt-3">Inventory</div>
