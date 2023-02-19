@@ -21,9 +21,9 @@
     })
 </script>
 <template>
-    <div class="flex flex-col m-2 w-64">
-        <div class="bg-white w-36 h-14 outline outline-4 outline-black pt-3 w-64 mb-5">Crafting</div>
-        <div class="bg-white mt-1.5 w-36 h-14 outline outline-4 outline-black h-fit w-64" v-for="item, index in GameController.mainCrafts.getCrafts()">
+    <div class="flex flex-col m-2 p-1 w-[16.5rem] overflow-y-auto h-full">
+        <div class="bg-white w-36 h-fit outline outline-4 outline-black py-3 w-64 mb-3">Crafting</div>
+        <div class="bg-white mt-1.5 w-36 h-fit outline outline-4 outline-black h-fit w-64" v-for="item, index in GameController.mainCrafts.getCrafts()">
             <pre :class="{'bg-neutral-300':!this.canCraft(index)}" @click="GameController.mainCrafts.makeCraft(index)">{{item}}</pre>
             <div class="w-full bg-gray-400 h-2.5">
                 <div class="bg-blue-600 h-2.5" :style="{width:this.getCraftProgress(index)+'%'}"></div>

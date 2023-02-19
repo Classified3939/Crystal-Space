@@ -24,12 +24,12 @@ export class AllActions {
             exchanger: new ItemExchanger(),
         },
         [ActionName.ChopWood]: {
-            display: "Chop Wood",
+            display: "Chop Trees",
             id: ActionName.ChopWood,
             inputs: new Array(
                 { type: AllItems.items[ItemNames.WoodAxe], amount: 1 }
             ),
-            output: { type: AllItems.items[ItemNames.PineWood], amount: 1 },
+            output: { type: AllItems.items[ItemNames.Wood], amount: 1 },
             effortLevel: 1,
             timeFunction: (effort: number): number => {
                 return Math.floor((effort - 1) * (0.35 ** 5) + 5);
@@ -39,15 +39,15 @@ export class AllActions {
             exchanger: new ItemExchanger(),
         },
         [ActionName.ChopWoodEnergized]: {
-            display: "Quickly Chop Wood",
+            display: "Quickly Chop Trees",
             id: ActionName.ChopWoodEnergized,
             inputs: new Array(
                 { type: AllItems.items[ItemNames.EnergeticWoodAxe], amount: 1 }
             ),
-            output: { type: AllItems.items[ItemNames.PineWood], amount: 3 },
+            output: { type: AllItems.items[ItemNames.Wood], amount: 3 },
             effortLevel: 1,
             timeFunction: (effort: number): number => {
-                return Math.floor((effort - 1) * (0.35 ** 2.5) + 2.5);
+                return Math.floor((effort - 1) * (0.35 ** 2.5) + 5);
             },
             progress: 0,
             onFinish: new SimpleEventDispatcher<ActionName.ChopWoodEnergized>(),

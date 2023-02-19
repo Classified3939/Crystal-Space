@@ -12,7 +12,7 @@ export class AllCrafts {
             display: "Basic Wood Axe",
             id: CraftName.WoodAxe,
             inputs: new Array(
-                { type: AllItems.items[ItemNames.PineWood], amount: 2 }
+                { type: AllItems.items[ItemNames.Wood], amount: 2 }
             ),
             output: new Array({ type: AllItems.items[ItemNames.WoodAxe], amount: 1 }),
             effortLevel: 1,

@@ -1,7 +1,6 @@
 <script setup lang="ts">
     import { defineComponent } from 'vue';
     import {GameController} from "../scripts/GameController"
-    import { ItemExchanger } from '../scripts/items/itemExchanger';
     import { ItemTrade } from '../scripts/trading/itemTrade';
 </script>
 
@@ -24,8 +23,8 @@
 </script>
 
 <template>
-    <div class="flex flex-col m-2">
-        <div class="bg-white w-64 h-14 pt-3 outline outline-4 outline-black mb-5">Trading Post</div>
+    <div class="flex flex-col m-2 h-full p-1 overflow-y-auto overflow-x-hidden">
+        <div class="bg-white w-64 py-3 outline outline-4 outline-black mb-3">Trading Post</div>
         <div class="flex mt-1.5 flex-col bg-white w-64 h-fit text-left outline outline-4 outline-black" v-for="item, index in GameController.mainTrades.getTrades()">
             <pre :class="{'bg-neutral-300':!this.canTrade(index)}" @click="GameController.mainTrades.makeTrade(index)">{{item}}</pre>
             <div class="w-full bg-gray-400 h-2.5">

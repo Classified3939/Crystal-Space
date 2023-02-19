@@ -2,19 +2,19 @@ import { AllItems, ItemNames } from "../items/allItems";
 import { ItemExchanger } from "../items/itemExchanger";
 
 export enum TradeName {
-    SellPine,
-    BuyPine,
+    SellWood,
+    BuyWood,
     BuyRedCrys,
 }
 
 export class AllTrades {
     static trades: object = {
-        [TradeName.SellPine]: {
-            display: "Pine Wood",
-            id: TradeName.SellPine,
+        [TradeName.SellWood]: {
+            display: "Wood",
+            id: TradeName.SellWood,
             isSelling: true,
             inputs: new Array(
-                { type: AllItems.items[ItemNames.PineWood], amount: 1 }
+                { type: AllItems.items[ItemNames.Wood], amount: 1 }
             ),
             outputType: AllItems.items[ItemNames.CopperCoin],
             outputFunction: (uses: number): number => {
@@ -24,12 +24,12 @@ export class AllTrades {
             progress: 0,
             exchanger: new ItemExchanger(),
         },
-        [TradeName.BuyPine]: {
-            display: "Pine Wood",
-            id: TradeName.BuyPine,
+        [TradeName.BuyWood]: {
+            display: "Wood",
+            id: TradeName.BuyWood,
             isSelling: false,
             inputs: new Array({ type: AllItems.items[ItemNames.CopperCoin], amount: 10 }),
-            outputType: AllItems.items[ItemNames.PineWood],
+            outputType: AllItems.items[ItemNames.Wood],
             timeFunction: (uses: number): number => {
                 return Math.floor((uses - 1) * (0.35 ** 2) + 2);
             },

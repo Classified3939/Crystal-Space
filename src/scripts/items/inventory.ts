@@ -4,17 +4,14 @@ import { InventoryItem } from "./inventoryItem";
 export class Inventory {
     items: InventoryItem[];
     id: string;
-    displayListings: InventoryDisplay[];
 
     constructor(id: string) {
         this.id = id;
         this.items = new Array<InventoryItem>();
-        this.displayListings = new Array<InventoryDisplay>();
     }
 
     setItems(newItems: InventoryItem[]) {
         this.items = newItems;
-        this.getDisplay();
     }
 
     addItems(itemsToAdd: InventoryItem[]) {
@@ -29,7 +26,6 @@ export class Inventory {
                 this.items.push(newItem);
             }
         }
-        this.getDisplay();
     }
 
     increaseItem(currentItem: InventoryItem, amount: number) {
@@ -74,16 +70,15 @@ export class Inventory {
             newItem.amount -= loseItem.amount;
             this.items.splice(this.items.indexOf(currentItem), 1, newItem);
         }
-        this.getDisplay();
     }
 
-    getDisplay() {
+    getDisplay(): Array<InventoryDisplay> {
         const toDisplay = new Array<InventoryDisplay>();
         for (const item of this.items) {
             let displayItem = item.type.display + " " + item.amount.toString() + "/" + item.type.maxAmount.toString();
             toDisplay.push({ display: displayItem, id: item.type.id + "-" + item.amount });
         }
-        this.displayListings = toDisplay;
+        return toDisplay;
     }
 }
 

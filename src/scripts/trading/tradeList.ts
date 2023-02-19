@@ -34,8 +34,9 @@ export class TradeList {
             if (this.isBuying(trade)) {
                 toDisplay = "\t  Buy " + trade.outputAmount + " " + trade.display;
             }
-            else {
+            else if (this.isSelling(trade)) {
                 toDisplay = "\t  Sell " + trade.display;
+                toDisplay += "\n Gives: " + trade.outputFunction(1) + " " + trade.outputType.display
             }
             toDisplay += "\n Costs:"
             for (const cost of trade.inputs) {

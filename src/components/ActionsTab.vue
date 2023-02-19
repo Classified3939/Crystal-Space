@@ -1,6 +1,6 @@
 <script setup lang="ts">
     import { defineComponent } from 'vue';
-import { ManualAction } from '../scripts/actions/manualAction';
+    import { ManualAction } from '../scripts/actions/manualAction';
     import {GameController} from "../scripts/GameController"
 </script>
 
@@ -22,8 +22,8 @@ import { ManualAction } from '../scripts/actions/manualAction';
     })
 </script>
 <template>
-    <div class="flex flex-col m-2 w-72">
-        <div class="bg-white w-64 h-14 outline outline-4 outline-black pt-3 w-72 mb-5">Actions</div>
+    <div class="flex flex-col m-2 w-[18.5rem] p-1 overflow-y-auto h-full">
+        <div class="bg-white w-64 h-fit outline outline-4 outline-black py-3 w-72 mb-3.5">Actions</div>
         <div class="bg-white mt-1 w-72 h-14 outline outline-4 outline-black h-fit" v-for="item, index in GameController.mainActions.getActions()">
             <pre :class="{'bg-neutral-300':!this.canDoAction(index)}"  @click="GameController.mainActions.doAction(index)">{{item}}</pre>
             <div class="w-full bg-gray-400 h-2.5">
