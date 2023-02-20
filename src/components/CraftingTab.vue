@@ -15,8 +15,17 @@ const items = ref([{ message: 'Foo' }, { message: 'Bar' }])
             },
             getTool(tool: object){
                 return tool as ToolType;
+            },
+            getProgress(){
+                return GameController.mainCrafts.progress / GameController.mainCrafts.totalTime * 100;
             }
         },
+        computed:{
+            craftButtonBackground(){
+                if (GameController.mainCrafts.canCraftTool()) return "bg-white";
+                else return "bg-neutral-300";
+            }
+        }
     })
 </script>
 
@@ -29,7 +38,7 @@ const items = ref([{ message: 'Foo' }, { message: 'Bar' }])
         </div>
         <div class="flex flex-row">
         <!--MATERIAL CHOOSER-->
-            <VDropdown class="bg-amber-300 h-fit outline outline-4 outline-black my-1 w-24">
+            <VDropdown class="h-fit outline outline-4 outline-black my-1 w-24">
         <!-- This will be the popover reference (for the events and position) -->
         <button class="w-full h-full">{{GameController.mainCrafts.chosenMaterial.display}}</button>
         <!-- This will be the content of the popover -->
@@ -40,7 +49,7 @@ const items = ref([{ message: 'Foo' }, { message: 'Bar' }])
         </template>
         </VDropdown>
         <!--TOOL TYPE CHOOSER-->
-        <VDropdown class="bg-amber-300 h-fit outline outline-4 outline-black my-1 w-24 ml-16">
+        <VDropdown class="h-fit outline outline-4 outline-black my-1 w-24 ml-16">
         <!-- This will be the popover reference (for the events and position) -->
         <button class="w-full h-full">{{GameController.mainCrafts.chosenType.display}}</button>
         <!-- This will be the content of the popover -->
@@ -53,7 +62,7 @@ const items = ref([{ message: 'Foo' }, { message: 'Bar' }])
         </div>
         <div class="bg-purple-300 h-fit outline outline-4 outline-black py-1 ml-[4rem] mt-4 w-32">Modifier</div>
         <!--TOOL TYPE CHOOSER-->
-        <VDropdown class="bg-amber-300 h-fit outline outline-4 outline-black my-1 w-32 ml-[4rem]">
+        <VDropdown class="h-fit outline outline-4 outline-black my-1 w-32 ml-[4rem]">
         <!-- This will be the popover reference (for the events and position) -->
         <button class="w-full h-full">{{GameController.mainCrafts.chosenModifier}}</button>
         <!-- This will be the content of the popover -->
@@ -63,6 +72,9 @@ const items = ref([{ message: 'Foo' }, { message: 'Bar' }])
             </div>
         </template>
         </VDropdown>
-        <pre @click="GameController.mainCrafts.craftTool()" class="bg-purple-300 h-fit outline outline-4 outline-black mt-4 py-1 w-64">{{GameController.mainCrafts.getDisplay()}}</pre>
+        <pre :class="craftButtonBackground" @click="GameController.mainCrafts.craftTool()" class="h-fit outline outline-4 outline-black mt-4 py-1 w-64">{{GameController.mainCrafts.getDisplay()}}</pre>
+        <div class="w-full bg-gray-400 h-2.5">
+            <div class="bg-blue-600 h-2.5" :style="{width:this.getProgress()+'%'}"></div>
+        </div>
     </div>
 </template>

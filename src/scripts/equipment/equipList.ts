@@ -17,16 +17,30 @@ export class EquipList {
     }
 
     equipTool(tool: ToolItem) {
-        if (this.filledSlots + tool.type.slotsNeeded > this.slots) return;
+        if (!this.canEquipTool(tool)) return;
         this.equipment.push(tool);
         this.filledSlots += tool.type.slotsNeeded;
     }
 
-    unequipTool(index: number) {
+    canEquipTool(tool: ToolItem): boolean {
+        return (this.filledSlots + tool.type.slotsNeeded <= this.slots);
+    }
+
+    loseTool(index: number) {
         this.filledSlots -= this.equipment[index].type.slotsNeeded;
-        const removedTool = this.equipment.splice(index, 1);
-        console.log(removedTool);
-        GameController.toolInv.addItems(removedTool);
+        this.equipment.splice(index, 1);
+    }
+
+    putToolBack(index: number) {
+        GameController.toolInv.addItems(new Array(this.equipment[index]));
+        this.loseTool(index);
+    }
+
+    loseDurability(tool: ToolItem) {
+        tool.durability -= 1;
+        if (tool.durability <= 0) {
+            this.loseTool(this.equipment.indexOf(tool));
+        }
     }
 
     getDisplay(): Array<ToolDisplay> {

@@ -1,6 +1,6 @@
-import { SimpleEventDispatcher } from "strongly-typed-events";
-import { AllItems, ItemNames } from "../items/allItems"
-import { ItemExchanger } from "../items/itemExchanger";
+/*import { SimpleEventDispatcher } from "strongly-typed-events";
+import { AllItems, ItemNames } from "../../items/allItems"
+import { ItemExchanger } from "../../items/itemExchanger";
 export enum CraftName {
     WoodAxe,
     EnergeticWoodAxe,
@@ -40,4 +40,4 @@ export class AllCrafts {
             exchanger: new ItemExchanger(),
         },
     }
-}
+}*/

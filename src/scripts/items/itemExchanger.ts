@@ -10,8 +10,9 @@ export class ItemExchanger {
         this.toGain = toGain;
     }
 
-    canExchange(): boolean {
+    canExchange(multiplier?: number): boolean {
         if (this.toLose === undefined || this.toGain === undefined) return false;
+        if (multiplier === undefined) multiplier = 1;
         const mainInputs = this.toLose.filter(i => i.type.invType === "main");
         const crysInputs = this.toLose.filter(i => i.type.invType === "crystal");
 
@@ -34,11 +35,12 @@ export class ItemExchanger {
         GameController.crystalInv.loseItems(crysInputs);
     }
 
-    gainItems() {
+    gainItems(outputMultiplier?: number) {
+
         const mainOutputs = this.toGain.filter(i => i.type.invType === "main");
         const crysOutputs = this.toGain.filter(i => i.type.invType === "crystal");
 
-        GameController.mainInv.addItems(mainOutputs);
-        GameController.crystalInv.addItems(crysOutputs);
+        GameController.mainInv.addItems(mainOutputs, outputMultiplier);
+        GameController.crystalInv.addItems(crysOutputs, outputMultiplier);
     }
 }

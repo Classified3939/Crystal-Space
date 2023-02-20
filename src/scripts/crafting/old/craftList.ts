@@ -1,4 +1,4 @@
-import { ItemCraft } from "./itemCraft";
+/*import { ItemCraft } from "./itemCraft";
 import { GameController } from "../../GameController";
 import { ItemExchanger } from "../../items/itemExchanger";
 
@@ -63,4 +63,4 @@ export class CraftList {
     getCraftTime(craft: ItemCraft): number {
         return craft.timeFunction(1);
     }
-}
+}*/

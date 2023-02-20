@@ -1,19 +1,16 @@
-import { nextTick, reactive, ref } from "vue";
+import { reactive } from "vue";
 import { Inventory } from "./items/inventory"
 import { AllItems, ItemNames } from "./items/allItems";
 import { TradeList } from "./trading/tradeList"
 import { AllTrades, TradeName } from "./trading/allTrades";
 import loop from 'raf-loop';
-import { CraftList } from "./crafting/craftList";
-import { AllCrafts, CraftName } from "./crafting/allCrafts";
 import { ActionList } from "./actions/actionList";
-import { ItemExchanger } from "./items/itemExchanger";
 import { ActionName, AllActions } from "./actions/allActions";
-import { AllTools, MaterialNames, ToolNames } from "./tools/allTools";
-import { ToolModifier } from "./tools/toolItem";
 import { ToolInventory } from "./tools/toolInventory";
 import { EquipList } from "./equipment/equipList";
-import { NewCrafting as Crafting } from "./crafting/newCrafting";
+import { Crafting as Crafting } from "./crafting/crafting";
+import { AllTools, MaterialNames, ToolModifier, ToolNames } from "./tools/allTools";
+import { ToolItem } from "./tools/toolItem";
 
 export class GameController {
     static mainInv: Inventory;
@@ -32,23 +29,31 @@ export class GameController {
         GameController.mainTrades = reactive(new TradeList("mainTrade"));
         GameController.mainCrafts = reactive(new Crafting("mainCraft"));
         GameController.mainActions = reactive(new ActionList("mainAction"));
-        GameController.mainEquip = reactive(new EquipList("mainEquip", 1));
+        GameController.mainEquip = reactive(new EquipList("mainEquip", 2));
         this.initialize();
     }
 
     initialize() {
         GameController.mainInv.addItems(new Array(
-            { type: AllItems.items[ItemNames.CopperCoin], amount: 20 }));
+            { type: AllItems.items[ItemNames.CopperCoin], amount: 10 }));
+
+        GameController.toolInv.makeTool(AllTools.tools[ToolNames.Knife], AllTools.materials[MaterialNames.Wood], ToolModifier.None);
+        GameController.mainEquip.equipTool(GameController.toolInv.items[0] as ToolItem);
+        GameController.toolInv.loseTool(0);
 
         GameController.mainTrades.addTrade(AllTrades.trades[TradeName.BuyWood]);
         GameController.mainTrades.addTrade(AllTrades.trades[TradeName.SellWood]);
+        GameController.mainTrades.addTrade(AllTrades.trades[TradeName.SellWoodTrinket]);
+        GameController.mainTrades.addTrade(AllTrades.trades[TradeName.BuyStone]);
         GameController.mainTrades.addTrade(AllTrades.trades[TradeName.BuyRedCrys]);
+
+
         GameController.mainActions.addAction(AllActions.actions[ActionName.RunErrands]);
         GameController.mainActions.addAction(AllActions.actions[ActionName.ChopWood]);
-        //GameController.mainActions.addAction(AllActions.actions[ActionName.ChopWoodEnergized]);
+        GameController.mainActions.addAction(AllActions.actions[ActionName.CarveWood]);
         GameController.engine = loop((dt) => {
             GameController.mainTrades.updateTrades(dt);
-            //GameController.mainCrafts.updateCrafts(dt);
+            GameController.mainCrafts.updateCrafts(dt);
             GameController.mainActions.updateActions(dt);
         }).start();
     }

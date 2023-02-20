@@ -28,29 +28,33 @@ export class TradeList {
     getTrades(): string[] {
         const tradeArray = new Array<string>();
         for (const trade of this.availableTrades) {
-            let toDisplay = "";
+            let title = "\t"
+            let body = ""
             if (this.isBuying(trade)) {
-                toDisplay = "\t  Buy " + trade.outputAmount + " " + trade.display;
+                title += "Buy " + trade.outputAmount + " " + trade.display;
             }
             else if (this.isSelling(trade)) {
-                toDisplay = "\t  Sell " + trade.display;
-                toDisplay += "\n Gives: " + trade.outputFunction(1) + " " + trade.outputType.display
-            }
-            toDisplay += "\n Costs:"
-            for (const cost of trade.inputs) {
-                toDisplay += (" " + cost.amount + " " + cost.type.display + "\n");
-            }
-            if (this.isBuying(trade)) {
-                toDisplay += " Time: " + trade.timeFunction(1) + " Seconds\n";
-            }
-            else if (this.isSelling(trade)) {
-                toDisplay += " Time: " + trade.timeToComplete + " Seconds\n"
+                title += "Sell " + trade.display;
+                body += " Gives: " + trade.outputFunction(1) + " " + trade.outputType.display + "\n";
             }
 
-            tradeArray.push(toDisplay)
+            body += " Costs: ";
+            for (const cost of trade.inputs) {
+                body += (cost.amount + " " + cost.type.display + "\n");
+            }
+
+            if (this.isBuying(trade)) {
+                body += " Time: " + trade.timeFunction(1) + " Seconds\n";
+            }
+            else if (this.isSelling(trade)) {
+                body += " Time: " + trade.timeToComplete + " Seconds\n"
+            }
+
+            tradeArray.push(title + "\n" + body);
         }
         return tradeArray;
     }
+
 
     isBuying(obj: any): obj is BuyItem {
         return 'outputAmount' in obj;
@@ -89,5 +93,4 @@ export class TradeList {
         if (this.isSelling(trade)) return trade.outputFunction(1);
         else if (this.isBuying(trade)) return trade.outputAmount;
     }
-
 }

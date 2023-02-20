@@ -1,7 +1,7 @@
 <script setup lang="ts">
-    import { defineComponent } from 'vue';
-    import {GameController} from "../scripts/GameController"
-    import { ItemCraft } from '../scripts/crafting/old/itemCraft';
+   //import { defineComponent } from 'vue';
+    //import {GameController} from "../../scripts/GameController"
+    //import { ItemCraft } from '../../scripts/crafting/old/itemCraft';
 </script>
 
 <script lang="ts">

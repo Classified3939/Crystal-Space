@@ -1,11 +1,12 @@
 import { SimpleEventDispatcher } from "strongly-typed-events";
 import { AllItems, ItemNames } from "../items/allItems";
 import { ItemExchanger } from "../items/itemExchanger";
+import { ToolAspects } from "../tools/allTools";
 
 export enum ActionName {
     RunErrands,
     ChopWood,
-    ChopWoodEnergized,
+    CarveWood,
 }
 
 export class AllActions {
@@ -14,6 +15,7 @@ export class AllActions {
             display: "Run Errands",
             id: ActionName.RunErrands,
             inputs: new Array(),
+            requiredTool: ToolAspects.None,
             output: { type: AllItems.items[ItemNames.CopperCoin], amount: 5 },
             effortLevel: 1,
             timeFunction: (effort: number): number => {
@@ -22,13 +24,13 @@ export class AllActions {
             progress: 0,
             onFinish: new SimpleEventDispatcher<ActionName.RunErrands>(),
             exchanger: new ItemExchanger(),
+            actionStack: 0,
         },
         [ActionName.ChopWood]: {
             display: "Chop Trees",
             id: ActionName.ChopWood,
-            inputs: new Array(
-                { type: AllItems.items[ItemNames.WoodAxe], amount: 1 }
-            ),
+            inputs: new Array(),
+            requiredTool: ToolAspects.Axe,
             output: { type: AllItems.items[ItemNames.Wood], amount: 1 },
             effortLevel: 1,
             timeFunction: (effort: number): number => {
@@ -37,21 +39,24 @@ export class AllActions {
             progress: 0,
             onFinish: new SimpleEventDispatcher<ActionName.ChopWood>(),
             exchanger: new ItemExchanger(),
+            actionStack: 0,
         },
-        [ActionName.ChopWoodEnergized]: {
-            display: "Quickly Chop Trees",
-            id: ActionName.ChopWoodEnergized,
+        [ActionName.CarveWood]: {
+            display: "Carve Wood",
+            id: ActionName.CarveWood,
             inputs: new Array(
-                { type: AllItems.items[ItemNames.EnergeticWoodAxe], amount: 1 }
+                { type: AllItems.items[ItemNames.Wood], amount: 1 }
             ),
-            output: { type: AllItems.items[ItemNames.Wood], amount: 3 },
+            requiredTool: ToolAspects.Knife,
+            output: { type: AllItems.items[ItemNames.WoodenTrinket], amount: 1 },
             effortLevel: 1,
             timeFunction: (effort: number): number => {
-                return Math.floor((effort - 1) * (0.35 ** 2.5) + 5);
+                return Math.floor((effort - 1) * (0.35 ** 5) + 5);
             },
             progress: 0,
-            onFinish: new SimpleEventDispatcher<ActionName.ChopWoodEnergized>(),
+            onFinish: new SimpleEventDispatcher<ActionName.CarveWood>(),
             exchanger: new ItemExchanger(),
+            actionStack: 0,
         },
     }
 }

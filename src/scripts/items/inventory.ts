@@ -14,12 +14,12 @@ export class Inventory {
         this.items = newItems;
     }
 
-    addItems(itemsToAdd: InventoryItem[]) {
+    addItems(itemsToAdd: InventoryItem[], multiplier?: number) {
         for (const newItem of itemsToAdd) {
             const currentItem = this.items.find(item => item.type.id === newItem.type.id);
             if (currentItem !== undefined) {
                 if (this.canAddItem(currentItem.type, newItem.amount)) {
-                    this.increaseItem(currentItem, newItem.amount);
+                    this.increaseItem(currentItem, newItem.amount, multiplier);
                 }
             }
             else {
@@ -28,13 +28,14 @@ export class Inventory {
         }
     }
 
-    increaseItem(currentItem: InventoryItem, amount: number) {
+    increaseItem(currentItem: InventoryItem, amount: number, multiplier?: number) {
+        if (multiplier === undefined) multiplier = 1;
         const newItem = { type: currentItem.type, amount: currentItem.amount };
-        if (currentItem.amount + amount > currentItem.type.maxAmount) {
+        if (currentItem.amount + (amount * multiplier) > currentItem.type.maxAmount) {
             newItem.amount = currentItem.type.maxAmount;
         }
         else {
-            newItem.amount += amount;
+            newItem.amount += (amount * multiplier);
         }
         this.items.splice(this.items.indexOf(currentItem), 1, newItem)
     }

@@ -5,38 +5,49 @@ import { ItemExchanger } from "../items/itemExchanger";
 import { AllTools, MaterialNames, ToolModifier, ToolNames } from "../tools/allTools";
 import { ToolMaterial, ToolType } from "../tools/toolItem";
 
-export class NewCrafting {
+export class Crafting {
     id: string;
     chosenMaterial: ToolMaterial;
     chosenType: ToolType;
     chosenModifier: ToolModifier;
     exchanger: ItemExchanger;
+    progress: number;
+    totalTime: number;
 
     constructor(id: string) {
         this.id = id;
         this.chosenMaterial = AllTools.materials[MaterialNames.Wood];
-        this.chosenType = AllTools.tools[ToolNames.Axe];
+        this.chosenType = AllTools.tools[ToolNames.Knife];
         this.chosenModifier = ToolModifier.None;
         this.exchanger = new ItemExchanger();
+        this.progress = 0;
+        this.totalTime = this.calculateTime();
     }
 
     setMaterial(mat: ToolMaterial) {
-        this.chosenMaterial = mat
+        if (this.progress === 0) {
+            this.chosenMaterial = mat
+        }
     }
 
     setType(type: ToolType) {
-        this.chosenType = type;
+        if (this.progress === 0) {
+            this.chosenType = type;
+        }
     }
 
     setModifier(mod: ToolModifier) {
-        this.chosenModifier = mod;
+        if (this.progress === 0) {
+            this.chosenModifier = mod
+        }
     }
 
     craftTool() {
+        this.totalTime = this.calculateTime();
         if (!this.canCraftTool()) return;
         else {
             this.exchanger.loseItems();
-            GameController.toolInv.makeTool(this.chosenType, this.chosenMaterial, this.chosenModifier);
+            this.progress += 1 / 60;
         }
     }
 
@@ -79,5 +90,16 @@ export class NewCrafting {
 
     getCraftName(): string {
         return (this.chosenModifier !== ToolModifier.None ? this.chosenModifier + " " : "") + this.chosenMaterial.display + " " + this.chosenType.display;
+    }
+
+    updateCrafts(dt: DOMHighResTimeStamp) {
+        if (this.progress > 0) {
+            this.progress += (dt / 1000);
+            if (this.progress >= this.totalTime) {
+                GameController.toolInv.makeTool(this.chosenType, this.chosenMaterial, this.chosenModifier);
+                this.progress = 0;
+                this.totalTime = this.calculateTime();
+            }
+        }
     }
 }

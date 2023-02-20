@@ -1,6 +1,6 @@
 export enum ToolNames {
-    Axe,
     Knife,
+    Axe,
 }
 
 export enum MaterialNames {
@@ -14,19 +14,20 @@ export enum ToolModifier {
 }
 
 export enum ToolAspects {
-    "Axe",
-    "Knife",
+    None = "None",
+    Axe = "Axe",
+    Knife = "Knife",
 }
 
 export class AllTools {
     static tools: object = {
         [ToolNames.Axe]: {
             display: "Axe", id: "axe", maxAmount: Infinity, invType: "tools",
-            maxDurability: 100, slotsNeeded: 1, toolType: new Array(ToolAspects.Axe), baseCost: 2, baseTime: 5
+            maxDurability: 100, slotsNeeded: 1, aspects: new Array(ToolAspects.Axe), baseCost: 2, baseTime: 5
         },
         [ToolNames.Knife]: {
             display: "Knife", id: "knife", maxAmount: Infinity, invType: "tools",
-            maxDurability: 50, slotsNeeded: 1, toolType: new Array(ToolAspects.Knife), baseCost: 1, baseTime: 2,
+            maxDurability: 50, slotsNeeded: 1, aspects: new Array(ToolAspects.Knife), baseCost: 1, baseTime: 2,
         }
     };
     static materials: object = {
