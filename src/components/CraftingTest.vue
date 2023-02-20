@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import FloatingVue from 'floating-vue'
+
 import { defineComponent, ref } from 'vue';
 import { GameController } from '../scripts/GameController';
-import { AllTools, MaterialNames } from '../scripts/tools/allTools';
-import { ToolMaterial, ToolModifier, ToolType } from '../scripts/tools/toolItem';
+import { AllTools, ToolModifier} from '../scripts/tools/allTools';
+import { ToolMaterial, ToolType } from '../scripts/tools/toolItem';
 const items = ref([{ message: 'Foo' }, { message: 'Bar' }])
 </script>
 
@@ -31,22 +31,22 @@ const items = ref([{ message: 'Foo' }, { message: 'Bar' }])
         <!--MATERIAL CHOOSER-->
             <VDropdown class="bg-amber-300 h-fit outline outline-4 outline-black my-1 w-24">
         <!-- This will be the popover reference (for the events and position) -->
-        <button class="w-full h-full">{{GameController.newCrafts.chosenMaterial.display}}</button>
+        <button class="w-full h-full">{{GameController.mainCrafts.chosenMaterial.display}}</button>
         <!-- This will be the content of the popover -->
         <template #popper>
             <div class="flex flex-col">
-                <div class="px-3 py-1" @click="GameController.newCrafts.setMaterial(getMaterial(material))" v-for="material, index in AllTools.materials" :key="index">{{ getMaterial(material).display}}</div>
+                <div class="px-3 py-1" @click="GameController.mainCrafts.setMaterial(getMaterial(material))" v-for="material, index in AllTools.materials" :key="index">{{ getMaterial(material).display}}</div>
             </div>
         </template>
         </VDropdown>
         <!--TOOL TYPE CHOOSER-->
         <VDropdown class="bg-amber-300 h-fit outline outline-4 outline-black my-1 w-24 ml-16">
         <!-- This will be the popover reference (for the events and position) -->
-        <button class="w-full h-full">{{GameController.newCrafts.chosenType.display}}</button>
+        <button class="w-full h-full">{{GameController.mainCrafts.chosenType.display}}</button>
         <!-- This will be the content of the popover -->
         <template #popper>
             <div class="flex flex-col">
-                <div class="px-3 py-1" @click="GameController.newCrafts.setType(getTool(tool))" v-for="tool, index in AllTools.tools" :key="index">{{ getTool(tool).display}}</div>
+                <div class="px-3 py-1" @click="GameController.mainCrafts.setType(getTool(tool))" v-for="tool, index in AllTools.tools" :key="index">{{ getTool(tool).display}}</div>
             </div>
         </template>
         </VDropdown>
@@ -55,14 +55,14 @@ const items = ref([{ message: 'Foo' }, { message: 'Bar' }])
         <!--TOOL TYPE CHOOSER-->
         <VDropdown class="bg-amber-300 h-fit outline outline-4 outline-black my-1 w-32 ml-[4rem]">
         <!-- This will be the popover reference (for the events and position) -->
-        <button class="w-full h-full">{{GameController.newCrafts.chosenModifier}}</button>
+        <button class="w-full h-full">{{GameController.mainCrafts.chosenModifier}}</button>
         <!-- This will be the content of the popover -->
         <template #popper>
             <div class="flex flex-col">
-                <div class="px-3 py-1" @click="GameController.newCrafts.setModifier(modifier)" v-for="modifier, index in ToolModifier" :key="index">{{modifier}}</div>
+                <div class="px-3 py-1" @click="GameController.mainCrafts.setModifier(modifier)" v-for="modifier, index in ToolModifier" :key="index">{{modifier}}</div>
             </div>
         </template>
         </VDropdown>
-        <pre @click="GameController.newCrafts.craftTool()" class="bg-purple-300 h-fit outline outline-4 outline-black mt-4 py-1 w-64">{{GameController.newCrafts.getDisplay()}}</pre>
+        <pre @click="GameController.mainCrafts.craftTool()" class="bg-purple-300 h-fit outline outline-4 outline-black mt-4 py-1 w-64">{{GameController.mainCrafts.getDisplay()}}</pre>
     </div>
 </template>

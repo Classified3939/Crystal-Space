@@ -1,7 +1,7 @@
-import { InventoryItem } from "../items/inventoryItem";
+import { InventoryItem } from "../../items/inventoryItem";
 import { ISimpleEvent } from "strongly-typed-events";
 import { CraftName } from "./allCrafts";
-import { ItemExchanger } from "../items/itemExchanger";
+import { ItemExchanger } from "../../items/itemExchanger";
 
 export interface ItemCraft {
     display: string;

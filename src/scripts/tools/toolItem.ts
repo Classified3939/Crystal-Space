@@ -1,15 +1,7 @@
 import { ItemType } from "../items/allItems";
 import { InventoryItem } from "../items/inventoryItem";
+import { ToolAspects, ToolModifier } from "./allTools";
 
-export enum ToolModifier {
-    None = "None",
-    Red = "Energetic"
-}
-
-export enum ToolAspects {
-    "Axe",
-    "Knife",
-}
 
 export interface ToolMaterial {
     materialModifier: number;

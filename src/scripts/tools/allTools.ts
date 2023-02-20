@@ -1,5 +1,3 @@
-import { ToolModifier, ToolAspects } from "./toolItem";
-
 export enum ToolNames {
     Axe,
     Knife,
@@ -8,6 +6,16 @@ export enum ToolNames {
 export enum MaterialNames {
     Wood,
     Stone,
+}
+
+export enum ToolModifier {
+    None = "None",
+    Red = "Energetic"
+}
+
+export enum ToolAspects {
+    "Axe",
+    "Knife",
 }
 
 export class AllTools {

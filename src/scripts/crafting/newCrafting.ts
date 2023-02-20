@@ -1,19 +1,23 @@
+import { GameController } from "../GameController";
 import { AllItems, ItemNames } from "../items/allItems";
 import { InventoryItem } from "../items/inventoryItem";
-import { AllTools, MaterialNames, ToolNames } from "../tools/allTools";
-import { ToolMaterial, ToolModifier, ToolType } from "../tools/toolItem";
+import { ItemExchanger } from "../items/itemExchanger";
+import { AllTools, MaterialNames, ToolModifier, ToolNames } from "../tools/allTools";
+import { ToolMaterial, ToolType } from "../tools/toolItem";
 
 export class NewCrafting {
     id: string;
     chosenMaterial: ToolMaterial;
     chosenType: ToolType;
     chosenModifier: ToolModifier;
+    exchanger: ItemExchanger;
 
     constructor(id: string) {
         this.id = id;
         this.chosenMaterial = AllTools.materials[MaterialNames.Wood];
         this.chosenType = AllTools.tools[ToolNames.Axe];
         this.chosenModifier = ToolModifier.None;
+        this.exchanger = new ItemExchanger();
     }
 
     setMaterial(mat: ToolMaterial) {
@@ -29,7 +33,16 @@ export class NewCrafting {
     }
 
     craftTool() {
-        console.log("CRAFTING " + this.getCraftName());
+        if (!this.canCraftTool()) return;
+        else {
+            this.exchanger.loseItems();
+            GameController.toolInv.makeTool(this.chosenType, this.chosenMaterial, this.chosenModifier);
+        }
+    }
+
+    canCraftTool(): boolean {
+        this.exchanger.setItems(this.calculateCost(), new Array());
+        return this.exchanger.canExchange();
     }
 
     calculateCost(): InventoryItem[] {

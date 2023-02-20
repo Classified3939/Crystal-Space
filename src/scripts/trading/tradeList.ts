@@ -1,6 +1,4 @@
 import { ItemTrade, SellItem, BuyItem } from "./itemTrade";
-import { GameController } from "../GameController"
-import { ItemExchanger } from "../items/itemExchanger";
 
 
 export class TradeList {

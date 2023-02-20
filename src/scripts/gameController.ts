@@ -13,15 +13,14 @@ import { AllTools, MaterialNames, ToolNames } from "./tools/allTools";
 import { ToolModifier } from "./tools/toolItem";
 import { ToolInventory } from "./tools/toolInventory";
 import { EquipList } from "./equipment/equipList";
-import { NewCrafting } from "./crafting/newCrafting";
+import { NewCrafting as Crafting } from "./crafting/newCrafting";
 
 export class GameController {
     static mainInv: Inventory;
     static crystalInv: Inventory;
     static toolInv: ToolInventory;
     static mainTrades: TradeList;
-    static mainCrafts: CraftList;
-    static newCrafts: NewCrafting;
+    static mainCrafts: Crafting;
     static mainActions: ActionList;
     static mainEquip: EquipList
     static engine: loop
@@ -31,8 +30,7 @@ export class GameController {
         GameController.crystalInv = reactive(new Inventory("crystal"));
         GameController.toolInv = reactive(new ToolInventory("tools"));
         GameController.mainTrades = reactive(new TradeList("mainTrade"));
-        GameController.mainCrafts = reactive(new CraftList("mainCraft"));
-        GameController.newCrafts = reactive(new NewCrafting("newCraft"));
+        GameController.mainCrafts = reactive(new Crafting("mainCraft"));
         GameController.mainActions = reactive(new ActionList("mainAction"));
         GameController.mainEquip = reactive(new EquipList("mainEquip", 1));
         this.initialize();
@@ -45,14 +43,12 @@ export class GameController {
         GameController.mainTrades.addTrade(AllTrades.trades[TradeName.BuyWood]);
         GameController.mainTrades.addTrade(AllTrades.trades[TradeName.SellWood]);
         GameController.mainTrades.addTrade(AllTrades.trades[TradeName.BuyRedCrys]);
-        GameController.mainCrafts.addCraft(AllCrafts.crafts[CraftName.WoodAxe]);
-        GameController.mainCrafts.addCraft(AllCrafts.crafts[CraftName.EnergeticWoodAxe]);
         GameController.mainActions.addAction(AllActions.actions[ActionName.RunErrands]);
         GameController.mainActions.addAction(AllActions.actions[ActionName.ChopWood]);
         //GameController.mainActions.addAction(AllActions.actions[ActionName.ChopWoodEnergized]);
         GameController.engine = loop((dt) => {
             GameController.mainTrades.updateTrades(dt);
-            GameController.mainCrafts.updateCrafts(dt);
+            //GameController.mainCrafts.updateCrafts(dt);
             GameController.mainActions.updateActions(dt);
         }).start();
     }

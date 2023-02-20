@@ -1,11 +1,11 @@
 <script setup lang="ts">
     import { defineComponent } from 'vue';
     import {GameController} from "../scripts/GameController"
-    import { ItemCraft } from '../scripts/crafting/itemCraft';
+    import { ItemCraft } from '../scripts/crafting/old/itemCraft';
 </script>
 
 <script lang="ts">
-    export default defineComponent({
+    /*export default defineComponent({
         methods:{
             getCraft(index:number): ItemCraft{
                 return GameController.mainCrafts.availableCrafts[index]
@@ -18,9 +18,9 @@
                 return craft.exchanger.canExchange();
             }
         },
-    })
+    })*/
 </script>
-<template>
+<!--<template>
     <div class="flex flex-col m-2 p-1 w-[16.5rem] overflow-y-auto h-full">
         <div class="bg-white w-36 h-fit outline outline-4 outline-black py-3 w-64 mb-3">Crafting</div>
         <div class="bg-white mt-1.5 w-36 h-fit outline outline-4 outline-black h-fit w-64" v-for="item, index in GameController.mainCrafts.getCrafts()">
@@ -30,4 +30,4 @@
             </div>
         </div>
     </div>
-</template>
+</template>-->

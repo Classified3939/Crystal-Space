@@ -1,6 +1,6 @@
 import { ItemCraft } from "./itemCraft";
-import { GameController } from "../GameController";
-import { ItemExchanger } from "../items/itemExchanger";
+import { GameController } from "../../GameController";
+import { ItemExchanger } from "../../items/itemExchanger";
 
 export class CraftList {
     availableCrafts: ItemCraft[];

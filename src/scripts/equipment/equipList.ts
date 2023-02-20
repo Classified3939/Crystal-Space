@@ -1,6 +1,7 @@
 import { ToolDisplay } from "../tools/toolInventory";
-import { ToolItem, ToolModifier } from "../tools/toolItem";
+import { ToolItem } from "../tools/toolItem";
 import { GameController } from "../GameController"
+import { ToolModifier } from "../tools/allTools";
 
 export class EquipList {
     id: string;

@@ -1,6 +1,7 @@
 import { Inventory, InventoryDisplay } from "../items/inventory";
 import { InventoryItem } from "../items/inventoryItem";
-import { ToolItem, ToolMaterial, ToolModifier, ToolType } from "./toolItem";
+import { ToolModifier } from "./allTools";
+import { ToolItem, ToolMaterial, ToolType } from "./toolItem";
 
 export class ToolInventory extends Inventory {
 
@@ -25,7 +26,6 @@ export class ToolInventory extends Inventory {
     }
 
     loseTool(index: number) {
-        console.log("TEST", index);
         this.items.splice(index, 1);
     }
 
