@@ -27,9 +27,9 @@
         <div class="bg-white w-64 py-3 outline outline-4 outline-black mb-3">Trading Post</div>
         <div class="flex flex-col h-full pl-1 overflow-y-auto overflow-x-hidden w-[17rem]">
             <div class="flex mt-1.5 flex-col bg-white w-[16rem] h-fit text-left outline outline-4 outline-black" v-for="item, index in GameController.mainTrades.getTrades()">
-                <pre :class="{'bg-neutral-300':!this.canTrade(index)}" @click="GameController.mainTrades.makeTrade(index)">{{item}}</pre>
+                <pre :class="{'bg-neutral-300':!canTrade(index)}" @click="GameController.mainTrades.makeTrade(index)">{{item}}</pre>
                 <div class="w-full bg-gray-400 h-2.5">
-                    <div class="bg-blue-600 h-2.5" :style="{width:this.getTradeProgress(index)+'%'}"></div>
+                    <div class="bg-blue-600 h-2.5" :style="{width:getTradeProgress(index)+'%'}"></div>
                 </div>
             </div>
         </div>

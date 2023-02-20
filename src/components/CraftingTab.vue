@@ -1,10 +1,10 @@
 <script setup lang="ts">
 
-import { defineComponent, ref } from 'vue';
+import { defineComponent } from 'vue';
 import { GameController } from '../scripts/GameController';
 import { AllTools, ToolModifier} from '../scripts/tools/allTools';
 import { ToolMaterial, ToolType } from '../scripts/tools/toolItem';
-const items = ref([{ message: 'Foo' }, { message: 'Bar' }])
+
 </script>
 
 <script lang="ts">
@@ -24,7 +24,7 @@ const items = ref([{ message: 'Foo' }, { message: 'Bar' }])
             craftButtonBackground(){
                 if (GameController.mainCrafts.canCraftTool()) return "bg-white";
                 else return "bg-neutral-300";
-            }
+            },
         }
     })
 </script>
@@ -74,7 +74,7 @@ const items = ref([{ message: 'Foo' }, { message: 'Bar' }])
         </VDropdown>
         <pre :class="craftButtonBackground" @click="GameController.mainCrafts.craftTool()" class="h-fit outline outline-4 outline-black mt-4 py-1 w-64">{{GameController.mainCrafts.getDisplay()}}</pre>
         <div class="w-full bg-gray-400 h-2.5">
-            <div class="bg-blue-600 h-2.5" :style="{width:this.getProgress()+'%'}"></div>
+            <div class="bg-blue-600 h-2.5" :style="{width:getProgress()+'%'}"></div>
         </div>
     </div>
 </template>
