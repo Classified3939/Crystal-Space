@@ -2,6 +2,7 @@ import { SimpleEventDispatcher } from "strongly-typed-events";
 import { AllItems, ItemNames } from "../items/allItems";
 import { ItemExchanger } from "../items/itemExchanger";
 import { ToolAspects } from "../tools/allTools";
+import { ManualAction } from "./manualAction";
 
 export enum ActionName {
     RunErrands,
@@ -10,14 +11,13 @@ export enum ActionName {
 }
 
 export class AllActions {
-    static actions: object = {
+    static actions: Record<ActionName,ManualAction> = {
         [ActionName.RunErrands]: {
             display: "Run Errands",
             id: ActionName.RunErrands,
             inputs: new Array(),
             requiredTool: ToolAspects.None,
             output: { type: AllItems.items[ItemNames.CopperCoin], amount: 5 },
-            effortLevel: 1,
             timeFunction: (effort: number): number => {
                 return Math.floor((effort - 1) * (0.35 ** 3) + 5);
             },
@@ -32,7 +32,6 @@ export class AllActions {
             inputs: new Array(),
             requiredTool: ToolAspects.Axe,
             output: { type: AllItems.items[ItemNames.Wood], amount: 1 },
-            effortLevel: 1,
             timeFunction: (effort: number): number => {
                 return Math.floor((effort - 1) * (0.35 ** 5) + 5);
             },
@@ -49,7 +48,6 @@ export class AllActions {
             ),
             requiredTool: ToolAspects.Knife,
             output: { type: AllItems.items[ItemNames.WoodenTrinket], amount: 1 },
-            effortLevel: 1,
             timeFunction: (effort: number): number => {
                 return Math.floor((effort - 1) * (0.35 ** 5) + 5);
             },

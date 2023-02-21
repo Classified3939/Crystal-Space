@@ -1,5 +1,6 @@
 import { AllItems, ItemNames } from "../items/allItems";
 import { ItemExchanger } from "../items/itemExchanger";
+import { BuyItem, SellItem } from "./itemTrade";
 
 export enum TradeName {
     SellWood,
@@ -11,7 +12,7 @@ export enum TradeName {
 }
 
 export class AllTrades {
-    static trades: object = {
+    static trades: Record<TradeName,SellItem|BuyItem> = {
         [TradeName.SellWood]: {
             display: "Wood",
             id: TradeName.SellWood,

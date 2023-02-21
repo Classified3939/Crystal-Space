@@ -1,3 +1,5 @@
+import { ToolMaterial, ToolType } from "./toolItem";
+
 export enum ToolNames {
     Knife,
     Axe,
@@ -20,7 +22,7 @@ export enum ToolAspects {
 }
 
 export class AllTools {
-    static tools: object = {
+    static tools: Record<ToolNames,ToolType> = {
         [ToolNames.Axe]: {
             display: "Axe", id: "axe", maxAmount: Infinity, invType: "tools",
             maxDurability: 100, slotsNeeded: 1, aspects: new Array(ToolAspects.Axe), baseCost: 2, baseTime: 5
@@ -30,7 +32,7 @@ export class AllTools {
             maxDurability: 50, slotsNeeded: 1, aspects: new Array(ToolAspects.Knife), baseCost: 1, baseTime: 2,
         }
     };
-    static materials: object = {
+    static materials: Record<MaterialNames,ToolMaterial> = {
         [MaterialNames.Wood]: {
             materialModifier: 0.1,
             display: "Wooden",
