@@ -3,7 +3,7 @@ import { Inventory } from "./items/inventory"
 import { AllItems, ItemNames } from "./items/allItems";
 import { TradeList } from "./trading/tradeList"
 import { AllTrades, TradeName } from "./trading/allTrades";
-import loop from 'raf-loop';
+import  {Engine as loop}  from 'raf-loop';
 import { ActionList } from "./actions/actionList";
 import { ActionName, AllActions } from "./actions/allActions";
 import { ToolInventory } from "./tools/toolInventory";
@@ -20,7 +20,7 @@ export class GameController {
     static mainCrafts: Crafting;
     static mainActions: ActionList;
     static mainEquip: EquipList
-    static engine: loop
+    static engine: any
 
     constructor() {
         GameController.mainInv = reactive(new Inventory("mainInv"));
@@ -51,7 +51,7 @@ export class GameController {
         GameController.mainActions.addAction(AllActions.actions[ActionName.RunErrands]);
         GameController.mainActions.addAction(AllActions.actions[ActionName.ChopWood]);
         GameController.mainActions.addAction(AllActions.actions[ActionName.CarveWood]);
-        GameController.engine = loop((dt) => {
+        GameController.engine = loop((dt: DOMHighResTimeStamp) => {
             GameController.mainTrades.updateTrades(dt);
             GameController.mainCrafts.updateCrafts(dt);
             GameController.mainActions.updateActions(dt);

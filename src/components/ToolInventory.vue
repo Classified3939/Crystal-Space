@@ -1,6 +1,6 @@
 <script setup lang = "ts">
 import { defineComponent } from 'vue';
-import {GameController} from '../scripts/GameController';
+import {GameController} from "../scripts/GameController";
 import { ToolItem } from '../scripts/tools/toolItem';
 </script>
 

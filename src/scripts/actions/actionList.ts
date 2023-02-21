@@ -29,7 +29,7 @@ export class ActionList {
         const actionArray = new Array<string>();
         for (const action of this.manualActions) {
             let toDisplay = action.display + "\n";
-            toDisplay += "Gives: " + action.output.type.display + "\n";
+            toDisplay += "Gives: " + (action.requiredTool === ToolAspects.None? action.output.amount + " " : "") + action.output.type.display + "\n";
             if (action.requiredTool !== ToolAspects.None) {
                 toDisplay += "Requires: " + action.requiredTool + "\n";
             }

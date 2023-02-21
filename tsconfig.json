@@ -20,7 +20,8 @@
         "noEmitHelpers": true
     },
     "include": [
-        "src/**/*"
+        "src/**/*",
+        "decs.d.ts"
     ],
     "exclude": [
         "node_modules"
