@@ -3,7 +3,7 @@ import { Inventory } from "./items/inventory"
 import { AllItems, ItemNames } from "./items/allItems";
 import { TradeList } from "./trading/tradeList"
 import { AllTrades, TradeName } from "./trading/allTrades";
-import  {Engine as loop}  from 'raf-loop';
+import loop from "raf-loop";
 import { ActionList } from "./actions/actionList";
 import { ActionName, AllActions } from "./actions/allActions";
 import { ToolInventory } from "./tools/toolInventory";
@@ -19,7 +19,7 @@ export class GameController {
     static mainTrades: TradeList;
     static mainCrafts: Crafting;
     static mainActions: ActionList;
-    static mainEquip: EquipList
+    static mainEquip: EquipList;
     static engine: any
 
     constructor() {
@@ -30,7 +30,15 @@ export class GameController {
         GameController.mainCrafts = reactive(new Crafting("mainCraft"));
         GameController.mainActions = reactive(new ActionList("mainAction"));
         GameController.mainEquip = reactive(new EquipList("mainEquip", 2));
-        this.initialize();
+        if (!GameController.load()) {
+            this.initialize();
+        }
+        setInterval(GameController.save,15000);
+        GameController.engine = loop((dt: DOMHighResTimeStamp) => {
+            GameController.mainTrades.updateTrades(dt);
+            GameController.mainCrafts.updateCrafts(dt);
+            GameController.mainActions.updateActions(dt);
+        }).start();
     }
 
     initialize() {
@@ -51,10 +59,35 @@ export class GameController {
         GameController.mainActions.addAction(AllActions.actions[ActionName.RunErrands]);
         GameController.mainActions.addAction(AllActions.actions[ActionName.ChopWood]);
         GameController.mainActions.addAction(AllActions.actions[ActionName.CarveWood]);
-        GameController.engine = loop((dt: DOMHighResTimeStamp) => {
-            GameController.mainTrades.updateTrades(dt);
-            GameController.mainCrafts.updateCrafts(dt);
-            GameController.mainActions.updateActions(dt);
-        }).start();
+    }
+
+    static save(){
+        const gameSave = {
+            inventory: GameController.mainInv.items,
+            crystals: GameController.crystalInv.items,
+            trades: GameController.mainTrades.availableTrades,
+            tools: GameController.toolInv.items,
+            equip: GameController.mainEquip.equipment,
+            actions: GameController.mainActions.manualActions,
+            crafting: GameController.mainCrafts,
+        }
+        localStorage.setItem("crystal-space",JSON.stringify(gameSave));
+    }
+
+    static load(): boolean{
+        const save = JSON.parse(localStorage.getItem("crystal-space"));
+        if (save === null) return false;
+        if (save.inventory !== undefined) GameController.mainInv.load(save.inventory);
+        if (save.crystals !== undefined) GameController.crystalInv.load(save.crystals);
+        if (save.trades !== undefined) GameController.mainTrades.load(save.trades);
+        if (save.tools !== undefined) GameController.toolInv.load(save.tools);
+        if (save.equip !== undefined) GameController.mainEquip.load(save.equip);
+        if (save.actions !== undefined) GameController.mainActions.load(save.actions);
+        if (save.crafting !== undefined) GameController.mainCrafts.load(save.crafting);
+        return true;
+    }
+
+    static deleteSave(){
+        localStorage.setItem("crystal-space",null);
     }
 }

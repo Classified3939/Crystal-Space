@@ -102,4 +102,13 @@ export class Crafting {
             }
         }
     }
+
+    load(toLoad: Crafting){
+        this.setMaterial(toLoad.chosenMaterial);
+        this.setModifier(toLoad.chosenModifier);
+        this.setType(toLoad.chosenType);
+        this.totalTime = this.calculateTime();
+        this.progress = toLoad.progress;
+        this.exchanger = new ItemExchanger();
+    }
 }

@@ -1,6 +1,8 @@
 import { GameController } from "../GameController";
+import { ItemExchanger } from "../items/itemExchanger";
 import { ToolAspects, ToolModifier } from "../tools/allTools";
 import { ToolItem, ToolType } from "../tools/toolItem";
+import { AllActions } from "./allActions";
 import { ManualAction } from "./manualAction";
 
 export class ActionList {
@@ -113,5 +115,14 @@ export class ActionList {
 
     getActionTime(action: ManualAction) {
         return action.timeFunction(1);
+    }
+
+    load(toLoad: ManualAction[]){
+        this.manualActions = new Array<ManualAction>()
+        for (const action of toLoad){
+            action.exchanger = new ItemExchanger();
+            action.timeFunction = AllActions.actions[action.id].timeFunction;
+            this.addAction(action);
+        }
     }
 }

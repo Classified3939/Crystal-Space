@@ -57,4 +57,8 @@ export class EquipList {
         }
         return toDisplay;
     }
+
+    load(toLoad: ToolItem[]){
+        this.equipment = toLoad;
+    }
 }

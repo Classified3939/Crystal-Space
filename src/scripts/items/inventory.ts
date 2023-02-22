@@ -81,6 +81,14 @@ export class Inventory {
         }
         return toDisplay;
     }
+
+    load(toLoad: InventoryItem[]){
+        console.log(this.id);
+        this.items = new Array<InventoryItem>();
+
+        console.log(toLoad);
+        this.addItems(toLoad);
+    }
 }
 
 export interface InventoryDisplay {

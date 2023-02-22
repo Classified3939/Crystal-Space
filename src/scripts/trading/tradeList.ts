@@ -1,3 +1,5 @@
+import { ItemExchanger } from "../items/itemExchanger";
+import { AllTrades } from "./allTrades";
 import { ItemTrade, SellItem, BuyItem } from "./itemTrade";
 
 
@@ -61,7 +63,7 @@ export class TradeList {
     }
 
     isSelling(obj: any): obj is SellItem {
-        return 'outputFunction' in obj;
+        return 'timeToComplete' in obj;
     }
 
     makeTrade(index: number) {
@@ -92,5 +94,20 @@ export class TradeList {
     getOutput(trade: ItemTrade): number {
         if (this.isSelling(trade)) return trade.outputFunction(1);
         else if (this.isBuying(trade)) return trade.outputAmount;
+    }
+
+    load(toLoad: ItemTrade[]){
+        this.availableTrades = new Array<ItemTrade>();
+        for (const trade of toLoad){
+            trade.exchanger = new ItemExchanger();
+            if (this.isSelling(trade)){
+                trade.timeToComplete = (AllTrades.trades[trade.id] as SellItem).timeToComplete;
+                trade.outputFunction = (AllTrades.trades[trade.id] as SellItem).outputFunction;
+            }
+            else if (this.isBuying(trade)){
+                trade.timeFunction = (AllTrades.trades[trade.id] as BuyItem).timeFunction;
+            }
+            this.addTrade(trade);
+        }
     }
 }

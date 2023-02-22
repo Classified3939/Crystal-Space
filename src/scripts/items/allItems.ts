@@ -15,7 +15,7 @@ export enum ItemNames {
 
 export class AllItems {
     static items: Record<ItemNames,ItemType> = {
-        [ItemNames.CopperCoin]: { display: "Copper Coin", id: "gold", maxAmount: 1000, invType: "main" },
+        [ItemNames.CopperCoin]: { display: "Copper Coin", id: "coinCopper", maxAmount: 1000, invType: "main" },
         [ItemNames.Wood]: { display: "Wood", id: "wood", maxAmount: 100, invType: "main" },
         [ItemNames.WoodenTrinket]: { display: "Wooden Trinket", id: "trinketWood", maxAmount: 15, invType: "main" },
         [ItemNames.Stone]: { display: "Stone", id: "stone", maxAmount: 20, invType: "main" },

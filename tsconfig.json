@@ -17,7 +17,8 @@
         "outDir": "dist/",
         "baseUrl": "./",
         "listFiles": false,
-        "noEmitHelpers": true
+        "noEmitHelpers": true,
+        "esModuleInterop": true
     },
     "include": [
         "src/**/*",
