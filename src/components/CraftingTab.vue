@@ -31,7 +31,7 @@ import { ToolMaterial, ToolType } from '../scripts/tools/toolItem';
 
 <template>
     <div class="flex flex-col m-2 p-1 w-[16.5rem] overflow-y-auto h-full">
-        <div class="bg-white h-fit outline outline-4 outline-black py-3 w-64 mb-3">Crafting</div>
+        <div class="bg-violet-400 h-fit outline outline-4 outline-black py-3 w-64 mb-3">Crafting</div>
         <div class="flex flex-row">
             <div class="bg-purple-300 h-fit outline outline-4 outline-black py-1 w-24">Material</div>
             <div class="bg-purple-300 h-fit outline outline-4 outline-black py-1 ml-16 w-24">Type</div>

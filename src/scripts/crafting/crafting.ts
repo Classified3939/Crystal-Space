@@ -53,7 +53,7 @@ export class Crafting {
 
     canCraftTool(): boolean {
         this.exchanger.setItems(this.calculateCost(), new Array());
-        return this.exchanger.canExchange();
+        return this.exchanger.canExchange() && this.progress === 0;
     }
 
     calculateCost(): InventoryItem[] {
@@ -103,7 +103,7 @@ export class Crafting {
         }
     }
 
-    load(toLoad: Crafting){
+    load(toLoad: Crafting) {
         this.setMaterial(toLoad.chosenMaterial);
         this.setModifier(toLoad.chosenModifier);
         this.setType(toLoad.chosenType);

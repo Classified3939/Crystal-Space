@@ -33,7 +33,7 @@ export class GameController {
         if (!GameController.load()) {
             this.initialize();
         }
-        setInterval(GameController.save,15000);
+        setInterval(GameController.save, 15000);
         GameController.engine = loop((dt: DOMHighResTimeStamp) => {
             GameController.mainTrades.updateTrades(dt);
             GameController.mainCrafts.updateCrafts(dt);
@@ -61,7 +61,7 @@ export class GameController {
         GameController.mainActions.addAction(AllActions.actions[ActionName.CarveWood]);
     }
 
-    static save(){
+    static save() {
         const gameSave = {
             inventory: GameController.mainInv.items,
             crystals: GameController.crystalInv.items,
@@ -71,10 +71,10 @@ export class GameController {
             actions: GameController.mainActions.manualActions,
             crafting: GameController.mainCrafts,
         }
-        localStorage.setItem("crystal-space",JSON.stringify(gameSave));
+        localStorage.setItem("crystal-space", JSON.stringify(gameSave));
     }
 
-    static load(): boolean{
+    static load(): boolean {
         const save = JSON.parse(localStorage.getItem("crystal-space"));
         if (save === null) return false;
         if (save.inventory !== undefined) GameController.mainInv.load(save.inventory);
@@ -87,7 +87,7 @@ export class GameController {
         return true;
     }
 
-    static deleteSave(){
-        localStorage.setItem("crystal-space",null);
+    static deleteSave() {
+        localStorage.setItem("crystal-space", null);
     }
 }

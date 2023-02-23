@@ -21,7 +21,7 @@ import { ToolItem } from '../scripts/tools/toolItem';
 
 <template>
     <div class="flex flex-col w-[40.5rem] p-1 m-2 mt-4">
-        <div class="bg-white w-72 h-14 outline outline-4 outline-black pt-3 mb-3">Tool Storage</div>
+        <div class="bg-fuchsia-400 w-72 h-14 outline outline-4 outline-black pt-3 mb-3">Tool Storage</div>
         <div class="grid grid-cols-4 gap-y-3 overflow-y-auto ">        
             <div @click="equip(index)" class="bg-white w-36 h-fit outline outline-4 outline-black my-1 mx-1 pt-3 px-1" v-for="item, index in GameController.toolInv.getDisplay()" :key="item.id">
                 {{item.display}}

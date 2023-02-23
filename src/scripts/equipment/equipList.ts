@@ -28,6 +28,7 @@ export class EquipList {
 
     loseTool(index: number) {
         this.filledSlots -= this.equipment[index].type.slotsNeeded;
+        if (this.filledSlots < 0) this.filledSlots = 0;
         this.equipment.splice(index, 1);
     }
 
@@ -58,7 +59,7 @@ export class EquipList {
         return toDisplay;
     }
 
-    load(toLoad: ToolItem[]){
+    load(toLoad: ToolItem[]) {
         this.equipment = toLoad;
     }
 }

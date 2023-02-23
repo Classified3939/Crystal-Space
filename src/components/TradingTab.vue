@@ -24,7 +24,7 @@
 
 <template>
     <div class="flex flex-col m-2 h-full p-0.5 w-[17rem]">
-        <div class="bg-white w-64 py-3 outline outline-4 outline-black mb-3">Trading Post</div>
+        <div class="bg-violet-400 w-64 py-3 outline outline-4 outline-black mb-3">Trading Post</div>
         <div class="flex flex-col h-full pl-1 overflow-y-auto overflow-x-hidden w-[17rem]">
             <div class="flex mt-1.5 flex-col bg-white w-[16rem] h-fit text-left outline outline-4 outline-black" v-for="item, index in GameController.mainTrades.getTrades()">
                 <pre :class="{'bg-neutral-300':!canTrade(index)}" @click="GameController.mainTrades.makeTrade(index)">{{item}}</pre>
