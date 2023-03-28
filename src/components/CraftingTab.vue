@@ -44,7 +44,7 @@ import { ToolMaterial, ToolType } from '../scripts/tools/toolItem';
         <!-- This will be the content of the popover -->
         <template #popper>
             <div class="flex flex-col">
-                <div class="px-3 py-1" @click="GameController.mainCrafts.setMaterial(getMaterial(material))" v-for="material, index in AllTools.materials" :key="index">{{ getMaterial(material).display}}</div>
+                <div class="px-3 py-1" @click="GameController.mainCrafts.setMaterial(getMaterial(material))" v-for="material, index in GameController.mainCrafts.availableMaterials" :key="index">{{ getMaterial(material).display}}</div>
             </div>
         </template>
         </VDropdown>
@@ -55,7 +55,7 @@ import { ToolMaterial, ToolType } from '../scripts/tools/toolItem';
         <!-- This will be the content of the popover -->
         <template #popper>
             <div class="flex flex-col">
-                <div class="px-3 py-1" @click="GameController.mainCrafts.setType(getTool(tool))" v-for="tool, index in AllTools.tools" :key="index">{{ getTool(tool).display}}</div>
+                <div class="px-3 py-1" @click="GameController.mainCrafts.setType(getTool(tool))" v-for="tool, index in GameController.mainCrafts.availableTypes" :key="index">{{ getTool(tool).display}}</div>
             </div>
         </template>
         </VDropdown>
@@ -68,7 +68,7 @@ import { ToolMaterial, ToolType } from '../scripts/tools/toolItem';
         <!-- This will be the content of the popover -->
         <template #popper>
             <div class="flex flex-col">
-                <div class="px-3 py-1" @click="GameController.mainCrafts.setModifier(modifier)" v-for="modifier, index in ToolModifier" :key="index">{{modifier}}</div>
+                <div class="px-3 py-1" @click="GameController.mainCrafts.setModifier(modifier)" v-for="modifier, index in GameController.mainCrafts.availableModifiers" :key="index">{{modifier}}</div>
             </div>
         </template>
         </VDropdown>

@@ -1,6 +1,7 @@
 import { SimpleEventDispatcher } from "strongly-typed-events";
 import { AllItems, ItemNames } from "../items/allItems";
 import { ItemExchanger } from "../items/itemExchanger";
+import { StatName } from "../stats/statItem";
 import { ToolAspects } from "../tools/allTools";
 import { ManualAction } from "./manualAction";
 
@@ -11,7 +12,7 @@ export enum ActionName {
 }
 
 export class AllActions {
-    static actions: Record<ActionName,ManualAction> = {
+    static actions: Record<ActionName, ManualAction> = {
         [ActionName.RunErrands]: {
             display: "Run Errands",
             id: ActionName.RunErrands,
@@ -25,6 +26,7 @@ export class AllActions {
             onFinish: new SimpleEventDispatcher<ActionName.RunErrands>(),
             exchanger: new ItemExchanger(),
             actionStack: 0,
+            relatedStat: null,
         },
         [ActionName.ChopWood]: {
             display: "Chop Trees",
@@ -39,6 +41,7 @@ export class AllActions {
             onFinish: new SimpleEventDispatcher<ActionName.ChopWood>(),
             exchanger: new ItemExchanger(),
             actionStack: 0,
+            relatedStat: StatName.MaterialsMined,
         },
         [ActionName.CarveWood]: {
             display: "Carve Wood",
@@ -55,6 +58,7 @@ export class AllActions {
             onFinish: new SimpleEventDispatcher<ActionName.CarveWood>(),
             exchanger: new ItemExchanger(),
             actionStack: 0,
+            relatedStat: StatName.ItemsCrafted,
         },
     }
 }

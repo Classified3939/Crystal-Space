@@ -8,9 +8,6 @@ import FloatingVue from "floating-vue";
 
 window.global = window;
 new GameController();
-window.onload = function () {
-  GameController.load();
-};
 window.controller = GameController;
 window.items = AllItems;
 const app = createApp(App);

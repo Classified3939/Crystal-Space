@@ -2,6 +2,7 @@ import { GameController } from "../GameController";
 import { AllItems, ItemNames } from "../items/allItems";
 import { InventoryItem } from "../items/inventoryItem";
 import { ItemExchanger } from "../items/itemExchanger";
+import { StatName } from "../stats/statItem";
 import { AllTools, MaterialNames, ToolModifier, ToolNames } from "../tools/allTools";
 import { ToolMaterial, ToolType } from "../tools/toolItem";
 
@@ -13,9 +14,16 @@ export class Crafting {
     exchanger: ItemExchanger;
     progress: number;
     totalTime: number;
+    availableMaterials: ToolMaterial[];
+    availableTypes: ToolType[];
+    availableModifiers: ToolModifier[];
 
     constructor(id: string) {
         this.id = id;
+        this.availableMaterials = new Array(AllTools.materials[MaterialNames.Wood])
+        this.availableTypes = new Array(AllTools.tools[ToolNames.Knife]);
+        this.availableModifiers = new Array(ToolModifier.None);
+
         this.chosenMaterial = AllTools.materials[MaterialNames.Wood];
         this.chosenType = AllTools.tools[ToolNames.Knife];
         this.chosenModifier = ToolModifier.None;
@@ -25,19 +33,19 @@ export class Crafting {
     }
 
     setMaterial(mat: ToolMaterial) {
-        if (this.progress === 0) {
+        if (this.progress === 0 && this.availableMaterials.filter(m => m.materialId === mat.materialId) !== undefined) {
             this.chosenMaterial = mat
         }
     }
 
     setType(type: ToolType) {
-        if (this.progress === 0) {
-            this.chosenType = type;
+        if (this.progress === 0 && this.availableTypes.filter(t => t.id === type.id) !== undefined) {
+            this.chosenType = type
         }
     }
 
     setModifier(mod: ToolModifier) {
-        if (this.progress === 0) {
+        if (this.progress === 0 && this.availableModifiers.filter(m => m === mod) !== undefined) {
             this.chosenModifier = mod
         }
     }
@@ -99,11 +107,15 @@ export class Crafting {
                 GameController.toolInv.makeTool(this.chosenType, this.chosenMaterial, this.chosenModifier);
                 this.progress = 0;
                 this.totalTime = this.calculateTime();
+                GameController.statController.addToStat(StatName.ToolsCrafted);
             }
         }
     }
 
     load(toLoad: Crafting) {
+        this.availableMaterials = toLoad.availableMaterials;
+        this.availableTypes = toLoad.availableTypes;
+        this.availableModifiers = toLoad.availableModifiers;
         this.setMaterial(toLoad.chosenMaterial);
         this.setModifier(toLoad.chosenModifier);
         this.setType(toLoad.chosenType);

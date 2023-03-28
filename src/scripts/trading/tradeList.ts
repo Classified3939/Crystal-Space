@@ -1,3 +1,4 @@
+import { GameController } from "../GameController";
 import { ItemExchanger } from "../items/itemExchanger";
 import { AllTrades } from "./allTrades";
 import { ItemTrade, SellItem, BuyItem } from "./itemTrade";
@@ -81,6 +82,7 @@ export class TradeList {
                 if (trade.progress >= this.getTradeTime(trade)) {
                     trade.exchanger.gainItems();
                     trade.progress = 0;
+                    GameController.statController.addToStat(trade.relatedStat);
                 }
             }
         }
@@ -96,15 +98,15 @@ export class TradeList {
         else if (this.isBuying(trade)) return trade.outputAmount;
     }
 
-    load(toLoad: ItemTrade[]){
+    load(toLoad: ItemTrade[]) {
         this.availableTrades = new Array<ItemTrade>();
-        for (const trade of toLoad){
+        for (const trade of toLoad) {
             trade.exchanger = new ItemExchanger();
-            if (this.isSelling(trade)){
+            if (this.isSelling(trade)) {
                 trade.timeToComplete = (AllTrades.trades[trade.id] as SellItem).timeToComplete;
                 trade.outputFunction = (AllTrades.trades[trade.id] as SellItem).outputFunction;
             }
-            else if (this.isBuying(trade)){
+            else if (this.isBuying(trade)) {
                 trade.timeFunction = (AllTrades.trades[trade.id] as BuyItem).timeFunction;
             }
             this.addTrade(trade);

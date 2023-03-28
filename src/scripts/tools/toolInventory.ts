@@ -1,4 +1,4 @@
-import { Inventory, InventoryDisplay } from "../items/inventory";
+import { Inventory, InventoryDisplay } from "../items/inventory"
 import { InventoryItem } from "../items/inventoryItem";
 import { ToolModifier } from "./allTools";
 import { ToolItem, ToolMaterial, ToolType } from "./toolItem";

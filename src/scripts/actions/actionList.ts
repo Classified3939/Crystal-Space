@@ -31,7 +31,7 @@ export class ActionList {
         const actionArray = new Array<string>();
         for (const action of this.manualActions) {
             let toDisplay = action.display + "\n";
-            toDisplay += "Gives: " + (action.requiredTool === ToolAspects.None? action.output.amount + " " : "") + action.output.type.display + "\n";
+            toDisplay += "Gives: " + (action.requiredTool === ToolAspects.None ? action.output.amount + " " : "") + action.output.type.display + "\n";
             if (action.requiredTool !== ToolAspects.None) {
                 toDisplay += "Requires: " + action.requiredTool + "\n";
             }
@@ -57,6 +57,9 @@ export class ActionList {
                     }
                     action.actionStack = 0;
                     action.progress = 0;
+                    if (action.relatedStat !== null) {
+                        GameController.statController.addToStat(action.relatedStat);
+                    }
                 }
             }
         }
@@ -109,7 +112,7 @@ export class ActionList {
 
     calcReward(tool: ToolItem, action: ManualAction) {
         if (tool.modifier === ToolModifier.Red) {
-            action.actionStack += 2
+            action.actionStack += 1
         }
     }
 
@@ -117,9 +120,9 @@ export class ActionList {
         return action.timeFunction(1);
     }
 
-    load(toLoad: ManualAction[]){
+    load(toLoad: ManualAction[]) {
         this.manualActions = new Array<ManualAction>()
-        for (const action of toLoad){
+        for (const action of toLoad) {
             action.exchanger = new ItemExchanger();
             action.timeFunction = AllActions.actions[action.id].timeFunction;
             this.addAction(action);

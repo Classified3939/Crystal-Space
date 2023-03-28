@@ -1,5 +1,6 @@
 import { AllItems, ItemNames } from "../items/allItems";
 import { ItemExchanger } from "../items/itemExchanger";
+import { StatName } from "../stats/statItem";
 import { BuyItem, SellItem } from "./itemTrade";
 
 export enum TradeName {
@@ -8,11 +9,10 @@ export enum TradeName {
     SellWoodTrinket,
     BuyStone,
     BuyRedCrys,
-
 }
 
 export class AllTrades {
-    static trades: Record<TradeName,SellItem|BuyItem> = {
+    static trades: Record<TradeName, SellItem | BuyItem> = {
         [TradeName.SellWood]: {
             display: "Wood",
             id: TradeName.SellWood,
@@ -27,6 +27,7 @@ export class AllTrades {
             timeToComplete: 2,
             progress: 0,
             exchanger: new ItemExchanger(),
+            relatedStat: StatName.MaterialsSold,
         },
         [TradeName.BuyWood]: {
             display: "Wood",
@@ -40,6 +41,7 @@ export class AllTrades {
             outputAmount: 1,
             progress: 0,
             exchanger: new ItemExchanger(),
+            relatedStat: StatName.MaterialsBought,
         },
         [TradeName.BuyRedCrys]: {
             display: "Red Crystal",
@@ -53,6 +55,7 @@ export class AllTrades {
             outputAmount: 1,
             progress: 0,
             exchanger: new ItemExchanger(),
+            relatedStat: StatName.CrystalsBought,
         },
         [TradeName.SellWoodTrinket]: {
             display: "Wood Trinket",
@@ -68,6 +71,7 @@ export class AllTrades {
             timeToComplete: 2,
             progress: 0,
             exchanger: new ItemExchanger(),
+            relatedStat: StatName.CraftedSold,
         },
         [TradeName.BuyStone]: {
             display: "Stone",
@@ -81,6 +85,7 @@ export class AllTrades {
             outputAmount: 1,
             progress: 0,
             exchanger: new ItemExchanger(),
+            relatedStat: StatName.MaterialsBought,
         },
     }
 }

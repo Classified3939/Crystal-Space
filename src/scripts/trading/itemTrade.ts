@@ -1,6 +1,7 @@
 import { ItemType } from "../items/allItems";
 import { InventoryItem } from "../items/inventoryItem";
 import { ItemExchanger } from "../items/itemExchanger";
+import { StatName } from "../stats/statItem";
 import { TradeName } from "./allTrades"
 
 export interface ItemTrade {
@@ -11,6 +12,7 @@ export interface ItemTrade {
     outputType: ItemType;
     progress: number;
     exchanger: ItemExchanger;
+    relatedStat: StatName;
 }
 
 export interface SellItem extends ItemTrade {
